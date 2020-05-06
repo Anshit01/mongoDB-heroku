@@ -4,17 +4,39 @@
         <title>MongoDB Demo</title>
         <style>
             body {
-                width: 60%;
+                margin-left: 20%;
+                margin-right: 20%;
+                padding: 0px;
+                height: 100%;
                 background-color: #b9d4ff;
-                align-content: center;
+                text-align: center;
+                line-height: 50px;
             }
 
             h1 {
                 text-align: center;
             }
+
+            a {
+                font-size: 24px;
+                
+            }
+
+            #body {
+                margin: 0px;
+                background-color: #cfcfcf;
+                overflow: auto;
+                width: inherit;
+                height: auto;
+            }
         </style>
     </head>
     <Body>
-        <h1>Hello!</h1>
+        <div id='body'>
+            <h1>Hello!</h1>
+            <a href='/load_all'>Show all Data</a>
+            <br>
+            <a href="/insert">Insert Data</a>
+        </div>
     </Body>
 </html>

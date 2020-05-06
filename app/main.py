@@ -1,10 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from pymongo import MongoClient
 import requests
+from config2 import username, password
 
 app = Flask(__name__)
 
-cluster = MongoClient('mongodb+srv://anshit01:uu66xdT!A4aQL-e@mongodb-heroku-db-uw5of.mongodb.net/test?retryWrites=true&w=majority')
+cluster = MongoClient(f'mongodb+srv://{username}:{password}@mongodb-heroku-db-uw5of.mongodb.net/test?retryWrites=true&w=majority')
 collection = cluster['test-db']['test-collection']
 
 @app.route('/')
@@ -14,12 +15,29 @@ def index():
 @app.route('/load_all')
 def load_all():
     results = collection.find({})
-    s = ''
+    ids = []
+    names = []
     for result in results:
-        s += str(result) + '<br>'
-    return s
+        ids.append(result['_id'])
+        names.append(result['name'])
+    l = len(ids)
+    return render_template('table.html', len=l, ids=ids, names=names)
 
 @app.route('/request')
-def request():
+def request_demo():
     response = requests.get("https://clock-anshit.herokuapp.com/")
     return response.text
+
+@app.route('/insert', methods=['GET', 'POST'])
+def insert():
+    if(request.method == 'GET'):
+        return render_template('insert.html', response=0)
+    else:
+        data = dict(request.form)
+        if(data['_id'] == '' or data['name'] == ''):
+            return render_template('insert.html', response=2, error_msg='Enter some data first!')
+        try:
+            collection.insert_one(data)
+            return render_template('insert.html', response=1)
+        except Exception as e:
+            return render_template('insert.html', response=2, error_msg=str(e))

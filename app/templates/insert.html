@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        
+        text-align: center;
+    }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    .form-binder {
+        width: 30em;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    div {
+        display: inline-block;
+    }
+    
+    p {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    #response-success {
+        color: green;
+    }
+
+    #response-failed {
+        color: red;
+    }
+    #response-failed-error {
+        color: gray;
+    }
+
+</style>
+
+<body>
+    <h3>Enter Data to feed into Database</h3>
+    <div class='form-binder'>
+        <form action="" method="POST">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="_id" placeholder="Unique ID">
+            <label for="lname">Name</label>
+            <input type="text" id="name" name="name" placeholder="Name">            
+            <input type="submit" value="Submit">  </form>
+            {%if response == 1%}
+                <p id="response-success">Added Successfully!</p>
+            {%endif%}
+            {%if response == 2%}
+            <p id="response-failed">Task Failed!</p>
+            <p id="response-failed-error">{{error_msg}}</p>
+            {%endif%}
+    </div>
+    <p><a href="/load_all">Show all data</a></p>
+</body>
+
+</html>
