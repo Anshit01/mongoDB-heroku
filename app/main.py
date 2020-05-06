@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 import requests
-from config2 import username, password
+from app.config import username, password
 
 app = Flask(__name__)
 
