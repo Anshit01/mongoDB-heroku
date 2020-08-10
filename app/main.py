@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
+from flask_cors import CORS
 import requests
 from app.config import username, password
 
 app = Flask(__name__)
+CORS(app)
 
 cluster = MongoClient(f'mongodb+srv://{username}:{password}@mongodb-heroku-db-uw5of.mongodb.net/test?retryWrites=true&w=majority')
 collection = cluster['test-db']['test-collection']
